@@ -107,3 +107,4 @@ def comment(video_id):
         db.session.commit()
         return jsonify({"text": new_comment.text})
     return "Error"
+
