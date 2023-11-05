@@ -19,4 +19,4 @@ Clone the repository to your local machine:
 
 ```sh
 https://github.com/ramvilla997/Reel-app.git
-cd ReelsClone
+
