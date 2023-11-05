@@ -1,7 +1,6 @@
 # REEL - APP
 
-A simple video sharing web application similar to Reels, built with Flask.
-
+A simple web application similar to Reels, built with Flask.
 ## Features
 
 - User authentication (login/logout/register)
