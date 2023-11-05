@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Reels</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        header h1 {
+            margin: 0;
+            color: #333;
+        }
+        .nav-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin-right: 15px;
+        }
+        .nav-links a:hover {
+            text-decoration: underline;
+        }
+        .video-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        .video-card video {
+            width: 50%;
+            height: auto;
+        }
+        .video-info {
+            padding: 15px;
+        }
+        .video-title {
+            font-size: 18px;
+            margin: 0;
+            color: #333;
+        }
+        .video-description {
+            font-size: 14px;
+            color: #666;
+        }
+        .video-actions {
+            padding: 10px 15px;
+            background: #f7f7f7;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eaeaea;
+        }
+        .like-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .like-button:hover {
+            background-color: #0056b3;
+        }
+        .like-count {
+            font-size: 14px;
+            color: #333;
+        }
+        .comments-section {
+            border-top: 1px solid #eaeaea;
+            padding: 15px;
+        }
+        .comment {
+            padding: 5px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .comment-form input[type="text"] {
+            padding: 8px;
+            width: 80%;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+        .comment-form button {
+            padding: 8px 15px;
+            border-radius: 5px;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .comment-form button:hover {
+            background-color: #218838;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Home</h1>
+        <div class="nav-links">
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('sample.logout') }}">Logout</a>
+                <a href="{{ url_for('sample.upload') }}" class="upload-button">Upload Video</a>
+
+            {% else %}
+                <a href="{{ url_for('sample.register') }}">Register</a>
+                <a href="{{ url_for('sample.login') }}">Login</a>
+            {% endif %}
+        </div>
+    </header>
+
+      
+    <!-- Your existing videos display section -->
+
+    <div>
+        {% for video in videos %}
+        <div class="video-card">
+            <video src="{{ url_for('static', filename='videos/' + video.video) }}" type="video/mp4" controls loop></video>
+            <!-- <video width="320" height="240" controls>
+                <source src="{{ url_for('static', filename='videos/' + video.video) }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video> -->
+            <div class="video-info">
+                <h2 class="video-title">{{ video.user.username }}: {{ video.title }}</h2>
+                <p class="video-description">{{ video.description }}</p>
+            </div>
+            <div class="video-actions">
+                {% if current_user.is_authenticated %}
+                    <button class="like-button" data-video="{{ video.id }}">Like</button>
+                {% endif %}
+                <span class="like-count">{{ like_counts[video.id] }} likes</span>
+            </div>
+            
+
+            <div class="comments-section">
+                <h3>Comments:</h3>
+                {% for comment in video.comments %}
+                    <div class="comment">{{ comment.user.username }}: {{ comment.text }}</div>
+                {% endfor %}
+                {% if current_user.is_authenticated %}
+                <form class="comment-form" data-video="{{ video.id }}">
+                    <input type="text" name="text" placeholder="Add a comment...">
+                    <button type="submit">Post</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="{{ url_for('static', filename='like_comment.js') }}"></script>
+</body>
+</html>
