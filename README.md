@@ -18,5 +18,5 @@ To run this project, you will need to have Python and pip installed.
 Clone the repository to your local machine:
 
 ```sh
-git clone https://github.com/yourusername/ReelsClone.git
+https://github.com/ramvilla997/Reel-app.git
 cd ReelsClone
