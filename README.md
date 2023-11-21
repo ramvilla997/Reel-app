@@ -101,7 +101,7 @@ You are now ready to run your Flask app. Start the Flask development server with
 flask run
 ```
 
-Your Flask app should now be running, and you can access it by opening a web browser and navigating to http://localhost:5000 by default.
+Your Flask app should now be running, and you can access it by opening a web browser and navigating to (http://127.0.0.1:5000/) by default.
 
 ## Step 8: Deactivate the Virtual Environment
 
