@@ -40,7 +40,7 @@ rm -r venv
 ```
 or 
 
-Delete the venv manually 
+### Delete the venv manually 
 
  
 ## Step 3: Create a New Virtual Environment
